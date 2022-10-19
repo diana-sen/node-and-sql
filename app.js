@@ -5,6 +5,9 @@ var cookieParser = require('cookie-parser');
 var logger = require('morgan');
 var indexRouter = require('./routes/index');
 
+require('dotenv').config()
+//console.log(process.env) // To confirm dotenv is working
+
 var app = express();
 
 app.use(logger('dev')); // Shows time of petition
