@@ -6,8 +6,12 @@ const now= new Date(time);
 
 console.log(package)
 
+
+
 /* GET home page. */
 router.get('/', (req, res, next) =>  res.send( { name: package.name, date: now.toString() }));
+
+// URL types
 
 // URL with parameters
 router.get('/users/:name', (req, res, next) =>  {

@@ -4,6 +4,7 @@ var path = require('path');
 var cookieParser = require('cookie-parser');
 var logger = require('morgan');
 var indexRouter = require('./routes/index');
+const package = require('./package.json')
 
 require('dotenv').config()
 //console.log(process.env) // To confirm dotenv is working
@@ -18,7 +19,20 @@ app.use(cookieParser());
 app.use(express.static(path.join(__dirname, 'public')));
 
 //app.use('/', indexRouter);
-app.use('/health', (req, res, nex) => res.send({ status:"OK"}));
+// app.use('/health', (req, res, nex) => res.send({ status:"OK"}));
+app.use('/health', (req, res, nex) => {
+  let healthInfo = {
+    status: "OK",
+    name: package.name,
+    version: package.version,
+  };
+
+  if (req.query.environment === "true") {
+    healthInfo = { ...healthInfo, environment: process.env.ENVIRONMENT };
+  }
+  res.send(healthInfo);
+});
+
 app.use('/api/v1/', indexRouter);
 app.use('*', (req, res, nex) => res.send({ message:"Not found"})); //defined at the end
 // catch 404 and forward to error handler
