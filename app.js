@@ -7,15 +7,17 @@ var indexRouter = require('./routes/index');
 
 var app = express();
 
-app.use(logger('dev'));
+app.use(logger('dev')); // Shows time of petition
+//app.use(logger());  //more info
 app.use(express.json());
 app.use(express.urlencoded({ extended: false }));
 app.use(cookieParser());
 app.use(express.static(path.join(__dirname, 'public')));
 
 //app.use('/', indexRouter);
+app.use('/health', (req, res, nex) => res.send({ status:"OK"}));
 app.use('/api/v1/', indexRouter);
-
+app.use('*', (req, res, nex) => res.send({ message:"Not found"})); //defined at the end
 // catch 404 and forward to error handler
 app.use(function(req, res, next) {
   next(createError(404));

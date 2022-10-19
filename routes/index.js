@@ -7,8 +7,8 @@ router.get('/', function(req, res, next) {
 });
 
 /* GET health page. */
-router.get('/health', function(req, res, next) {
+/* router.get('/health', function(req, res, next) {
   res.send( { status: 'OK' });
-});
+}); */
 
 module.exports = router;
